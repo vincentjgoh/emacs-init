@@ -1,3 +1,12 @@
+(defvar build-list-alist nil
+  "Global build queue")
+(defvar pause-build-queue nil
+  "Global flag for pausing the build queue")
+
+;; Builds that end in errors stay active as a compilation process.
+(defvar build-stopped-from-errors nil
+  "Flag that the last time the build finished, it was with errors")
+
 (defface compilation-boundary-face '((t (:foreground "pink" :bold t :height 1.2))) "Compilation Boundary Face")
 (defface compilation-exit-code-face '((t (:foreground "green" :background "black" :bold t))) "Compilation Exit Code Face")
 (defface compilation-exit-code-error-face '((t (:foreground "red" :background "black" :bold t))) "Compilation Exit Code Error Face")
