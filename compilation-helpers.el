@@ -18,6 +18,7 @@
 (font-lock-add-keywords 'compilation-mode '( ("^---.*" . 'compilation-boundary-face) ))
 (font-lock-add-keywords 'compilation-mode '( (".*Deoptimized.*" . 'compilation-deoptimized-face )))
 (font-lock-add-keywords 'compilation-mode '( ("^Time:.*" . 'compilation-final-time-face )))
+(font-lock-add-keywords 'compilation-mode '( ("scimitar_engine_win64_dll_vs2015.*x.*\\b" . 'compilation-boundary-face) ))
 
 (require 'compile)
 
@@ -265,6 +266,7 @@ the post-build teardown."
       ;; Not useful anymore?
       ;;           (search-backward "failed" nil t 1)
 
+      ;; THEN
       ;; Found an error. Can we identify it more specifically?
       (progn
         (goto-char (point-max))
@@ -277,15 +279,17 @@ the post-build teardown."
             (print-to-compilation-monitor "Compilation failed" t)))
         (play-error-sound))
 
+    ;; ELSE
     ;; The exit message is 'finished', so we assume that there was a successful compile.
     (if (string= "finished\n" exitmsg)
         (progn (play-finish-sound)
                (print-to-compilation-monitor "**------------------------------------------------------------Compilation succeeded----------------------------------------------------------**\n" t))
-
       ;; The exit message is something other than 'finished', so we failed I guess?
       (progn (play-error-sound)
              (print-to-compilation-monitor (concat "**--- Compilation failed: " exitmsg "\n") t))
-      )))
+      )
+    )
+  )
 
 ;; Switch to the compilation window, wherever we are.
 (defun switch-to-compilation-window ()

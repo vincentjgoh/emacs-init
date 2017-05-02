@@ -1,4 +1,4 @@
-(defun find-frame-by-name (frame-name)
+(defun find-frame-by-name (frame-name &optional silent)
   "Find any frame by partial or complete name."
   (let ((my-frame-list (frame-list))
         (prospective-frame nil))
@@ -6,7 +6,8 @@
       (setq prospective-frame (pop my-frame-list))
       (if (string-match frame-name (frame-parameter prospective-frame 'name))
           (progn (setq my-frame-list nil)
-                 (message (concat "Found frame matching " frame-name)))
+                 (if (not silent)
+                     (message (concat "Found frame matching " frame-name))))
         (setq prospective-frame nil)
         ))
     prospective-frame)
