@@ -49,11 +49,7 @@
   (interactive "sMessage: \n")
 
   (let ((prev-frame (selected-frame)))
-    ;; select-frame-by-name returns nil if the frame exists and can be selected, but just throws an
-    ;; error if it doesn't. That's why this code seems to create the frame if the frame is selected.
-    (if (condition-case nil
-            (select-frame-by-name "COMPILATION MONITOR")
-          (error t))
+    (if (not (find-frame-by-name "COMPILATION MONITOR" t))
         (let ((new-frame (make-frame '((name . "COMPILATION MONITOR")
                                        (width . 164)
                                        (height . 30)
@@ -65,6 +61,7 @@
                                        (left . 1913)
                                        (menu-bar-lines 0)))))
           (progn
+            (message "Selecting new frame")
             (select-frame new-frame t)
             ;; The *monitor* buffer is either acquired or created if it doesn't already exist, and dedicated
             ;; to the compilation frame.
@@ -75,23 +72,23 @@
             (setq window-size-fixed t)
             (set-window-dedicated-p (get-buffer-window "*monitor*") t)
             (modify-frame-parameters new-frame '((width . 164) (top . 694)))
+            (delete-other-windows (get-buffer-window "*monitor*"))
+            (select-frame prev-frame t)
             ))
-      )
+      ))
 
-    (delete-other-windows (get-buffer-window "*monitor*"))
-
-    (let ((monitor-msg msg)
-          (prev-buffer (current-buffer))
-          (prev-frame (selected-frame)))
-      (set-buffer "*monitor*")
+  (with-current-buffer "*monitor*"
+    (progn
       (goto-char (point-max))
       (if timestamp
           (insert (concat msg " " (format-time-string "%I:%M:%S\n")))
         (insert msg) )
-      (set-buffer prev-buffer))
+      ))
 
-    (raise-frame prev-frame))
-  )
+  (with-selected-frame (find-frame-by-name "COMPILATION MONITOR" t)
+    (goto-char (point-max)))
+
+    )
 
 (defun close-compilation-monitor ()
   (interactive)
@@ -103,4 +100,6 @@
     (error t)))
 
 (add-hook 'kill-emacs-hook 'close-compilation-monitor)
+
+;;(run-at-time "1 sec" 600 (lambda () (print-to-compilation-monitor "-------------------- " t)))
 ;;(print-to-compilation-monitor ";; This buffer displays the current status of any compilations")
