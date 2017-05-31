@@ -633,7 +633,6 @@ replaced with 'Buzz'. Multiples of both are replaced with
     (company-elisp
      (company-dabbrev-code company-gtags company-etags company-keywords)
      company-files company-capf company-semantic)))
- '(company-c-headers-path-user (quote ("e:/assassin/ace/dev/source/scimitar/")))
  '(company-dabbrev-code-everywhere nil)
  '(company-dabbrev-code-modes
    (quote
@@ -654,8 +653,6 @@ replaced with 'Buzz'. Multiples of both are replaced with
  '(compilation-scroll-output t)
  '(compilation-window-height 40)
  '(compile-auto-highlight t)
- '(compile-command
-   "cd e:/assassin/ace/dev/projects/buildmonkey && buildmonkey.pl -target=vs2012_win64_blob_tool_dll_release -platform=win64 %*")
  '(completion-how-to-resolve-old-completions (quote ask))
  '(csharp-want-flymake-fixup nil)
  '(current-language-environment "Latin-1")
@@ -678,11 +675,7 @@ replaced with 'Buzz'. Multiples of both are replaced with
  '(display-time-day-and-date t)
  '(display-time-format "%d/%b/%Y %H:%M")
  '(display-time-mode t nil (time))
- '(ede-project-directories (quote ("e:/assassin/ace/dev/source/scimitar")))
  '(eol-mnemonic-dos "dos")
- '(eshell-visual-commands
-   (quote
-    ("vi" "screen" "top" "less" "more" "lynx" "ncftp" "pine" "tin" "trn" "elm" "buildguild" "anvil" "kino" "scimitar" "genproj")))
  '(european-calendar-style t)
  '(everything-cmd "D:/Utilities/Everything/es.exe")
  '(fa-insert-method (quote name-and-parens-and-hint))
@@ -737,8 +730,6 @@ replaced with 'Buzz'. Multiples of both are replaced with
  '(iswitchb-default-method (quote samewindow))
  '(iswitchb-mode t)
  '(ivy-count-format "(%d/%d) ")
- '(jira-url "https://mdc-tomcat-jira87.ubisoft.org/jira/rpc/xmlrpc")
- '(jiralib-url "https://mdc-tomcat-jira87.ubisoft.org/jira")
  '(jit-lock-debug-mode t)
  '(mode-line-format
    (quote
